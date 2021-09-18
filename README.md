@@ -164,7 +164,7 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
 ### Model Configuration
 ```golang
   // Makes the model with given values of loss function , optimizer and learning rate.
-	model.Make(lnn.ModelConfig{Loss: "meanSquareError", Optimizer: "sgd", LearningRate: 0.2})
+  model.Make(lnn.ModelConfig{Loss: "meanSquareError", Optimizer: "sgd", LearningRate: 0.2})
 ```
 
 ### Train Model
@@ -198,7 +198,7 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
 	inputs := lnn.ToTensor([][]float64{[]float64{1, 1, 0, 0}, []float64{1, 0, 1, 0}})
 	outputs := lnn.ToTensor([][]float64{[]float64{0, 1, 1, 0}}) 
 
-	//	Trains the model with given configuration.
+	// Trains the model with given configuration.
 	model.Train(inputs, outputs, lnn.TrainConfig{Epochs: 5000, BatchSize: 4, Shuffle: true})
 
   // Print values.
