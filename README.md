@@ -158,7 +158,7 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
   // Add layer to model with 4 units , Input shape (2) and activation function relu.
   model.AddLayer(lnn.LayerConfig{InputShape: []int{2}, Units: 4, Activation: "relu"})
   // Add another layer to model with 1 unit and activation function sigmoid.
-	model.AddLayer(lnn.LayerConfig{Units: 1})
+  model.AddLayer(lnn.LayerConfig{Units: 1})
 ```
 
 ### Model Configuration
@@ -169,8 +169,8 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
 
 ### Train Model
 ```golang
-	//	Trains the model with given configuration.
-	model.Train(inputs, outputs, lnn.TrainConfig{Epochs: 1000, BatchSize: 4, Shuffle: true})
+  // Trains the model with given configuration.
+  model.Train(inputs, outputs, lnn.TrainConfig{Epochs: 1000, BatchSize: 4, Shuffle: true})
 ```
 
 ### Predict Output
@@ -183,26 +183,26 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
 
 ```golang
   // Create a model.
-	model := lnn.Model()
-
+  model := lnn.Model()
+  
   // Add layer to model with 4 units , Input shape (2) and activation function relu.
   model.AddLayer(lnn.LayerConfig{InputShape: []int{2}, Units: 4, Activation: "relu"})
-
+  
   // Add another layer to model with 1 unit and activation function sigmoid.
-	model.AddLayer(lnn.LayerConfig{Units: 1})
-
+  model.AddLayer(lnn.LayerConfig{Units: 1})
+  
   // Makes the model with given values of loss function , optimizer and learning rate.
-	model.Make(lnn.ModelConfig{Loss: "meanSquareError", Optimizer: "sgd", LearningRate: 0.2})
-
+  model.Make(lnn.ModelConfig{Loss: "meanSquareError", Optimizer: "sgd", LearningRate: 0.2})
+  
   // Inputs and outputs as a tensor object.
-	inputs := lnn.ToTensor([][]float64{[]float64{1, 1, 0, 0}, []float64{1, 0, 1, 0}})
-	outputs := lnn.ToTensor([][]float64{[]float64{0, 1, 1, 0}}) 
-
-	// Trains the model with given configuration.
-	model.Train(inputs, outputs, lnn.TrainConfig{Epochs: 5000, BatchSize: 4, Shuffle: true})
-
+  inputs := lnn.ToTensor([][]float64{[]float64{1, 1, 0, 0}, []float64{1, 0, 1, 0}})
+  outputs := lnn.ToTensor([][]float64{[]float64{0, 1, 1, 0}}) 
+  
+  // Trains the model with given configuration.
+  model.Train(inputs, outputs, lnn.TrainConfig{Epochs: 5000, BatchSize: 4, Shuffle: true})
+  
   // Print values.
-	model.Predict(inputs).Print() 
+  model.Predict(inputs).Print() 
 ```
 
 ![image](https://raw.githubusercontent.com/lovesaroha/gimages/main/62.png)
@@ -212,10 +212,10 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
   // Learning rate.
   learningRate := lnn.ToTensor(0.2)
   size := lnn.ToTensor(4)
-
+  
   // Inputs and outputs as a tensor object.
-	inputs := lnn.ToTensor([][]float64{[]float64{1, 1, 0, 0}, []float64{1, 0, 1, 0}})
-	outputs := lnn.ToTensor([][]float64{[]float64{1, 1, 1, 0}}) 
+  inputs := lnn.ToTensor([][]float64{[]float64{1, 1, 0, 0}, []float64{1, 0, 1, 0}})
+  outputs := lnn.ToTensor([][]float64{[]float64{1, 1, 1, 0}}) 
 
   // Weights and bias.
   weights := lnn.Tensor([]int{2, 1} , -1, 1)
