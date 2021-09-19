@@ -1,5 +1,5 @@
 # lnn
-This is a generalized neural network package with clean and transparent API for the Go language.
+This is a generalized neural network package with clean and transparent API for the Go language. Also available for javascript [github/lovesaroha/lnn.js](https://github.com/lovesaroha/lnn.js) 
 
 ## Features
 - Lightweight and Fast.
@@ -153,8 +153,6 @@ Make sure [Git is installed](https://git-scm.com/downloads) on your machine and 
 
 ### Add Layers In Model
 ```golang
-  // Create a model.
-  model := lnn.Model()
   // Add layer to model with 4 units , Input shape (2) and activation function relu.
   model.AddLayer(lnn.LayerConfig{InputShape: []int{2}, Units: 4, Activation: "relu"})
   // Add another layer to model with 1 unit and activation function sigmoid.

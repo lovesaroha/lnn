@@ -160,9 +160,6 @@ func (m *ModelObject) Train(inputs TensorObject, outputs TensorObject, config Tr
 			// Take a batch and predict.
 			batchOutput := m.Predict(inputBatches[b])
 			batchSize := ToTensor(inputBatches[b].Shape[1])
-			// if config.EachEpoch != nil {
-			// 	config.EachEpoch(m.Loss(batchOutput, outputBatches[b], batchSize).Sum(), i, b)
-			// }
 			// Run optimizer algorithm.
 			m.Optimizer(m, batchOutput, batchSize, inputBatches[b], outputBatches[b])
 		}
@@ -197,20 +194,18 @@ func meanSquareError(predict TensorObject, Output TensorObject, batchSize Tensor
 
 // Gradient descent optimizer.
 func gradientDescent(m *ModelObject, batchOutput TensorObject, batchSize TensorObject, inputArg TensorObject, output TensorObject) {
-	// error . d(z).
+	var lIndex = len(m.Layers) - 1
 	var input TensorObject = inputArg
-	// error . d(z) * T(I).
 	if len(m.Layers) > 1 {
-		input = m.Layers[len(m.Layers)-2].Output
+		input = m.Layers[lIndex-1].Output
 	}
-	m.Layers[len(m.Layers)-1].DweightedSum = batchOutput.Sub(output)
-	m.Layers[len(m.Layers)-1].Dbiases = m.Layers[len(m.Layers)-1].DweightedSum.AddCols().Divide(batchSize)
-	m.Layers[len(m.Layers)-1].Dweights = m.Layers[len(m.Layers)-1].DweightedSum.Dot(input.Transpose()).Divide(batchSize)
-	m.Layers[len(m.Layers)-1].Weights = m.Layers[len(m.Layers)-1].Weights.Sub(m.Layers[len(m.Layers)-1].Dweights.Mul(m.LearningRate))
-	m.Layers[len(m.Layers)-1].Biases = m.Layers[len(m.Layers)-1].Biases.Sub(m.Layers[len(m.Layers)-1].Dbiases.Mul(m.LearningRate))
+	m.Layers[lIndex].DweightedSum = batchOutput.Sub(output)
+	m.Layers[lIndex].Dbiases = m.Layers[lIndex].DweightedSum.AddCols().Divide(batchSize)
+	m.Layers[lIndex].Dweights = m.Layers[lIndex].DweightedSum.Dot(input.Transpose()).Divide(batchSize)
+	m.Layers[lIndex].Weights = m.Layers[lIndex].Weights.Sub(m.Layers[lIndex].Dweights.Mul(m.LearningRate))
+	m.Layers[lIndex].Biases = m.Layers[lIndex].Biases.Sub(m.Layers[lIndex].Dbiases.Mul(m.LearningRate))
 	// Back propagation.
 	for j := len(m.Layers) - 2; j >= 0; j-- {
-		// error * T(I).
 		if j == 0 {
 			input = inputArg
 		} else {

@@ -349,8 +349,6 @@ func elementWise(ts TensorObject, arg TensorObject, operation int) TensorObject 
 		return scalarOperations(ts, arg, operation)
 	} else if len(ts.Shape) == 0 && len(arg.Shape) == 2 {
 		return elementWiseWithMatrix(arg, ts, operation)
-	} else if len(ts.Shape) == 2 && len(arg.Shape) == 0 {
-		return elementWiseWithMatrix(ts, arg, operation)
 	}
 	return elementWiseWithMatrix(ts, arg, operation)
 }
@@ -376,8 +374,13 @@ func elementWiseWithMatrix(ts TensorObject, arg TensorObject, operation int) Ten
 			}
 		}
 	case 2:
-		if ts.Shape[0] == arg.Shape[0] && arg.Shape[1] == 1 {
-			arg = arg.ColExtend(ts.Shape[1])
+		if ts.Shape[0] == arg.Shape[0] && arg.Shape[1] != newTensor.Shape[1] {
+			if arg.Shape[1] < newTensor.Shape[1] {
+				arg = arg.ColExtend(ts.Shape[1])
+			} else {
+				newTensor = newTensor.ColExtend(arg.Shape[1])
+				newTensor.Shape[1] = arg.Shape[1]
+			}
 		}
 		matrixArg := arg.Values.([][]float64)
 		for i := 0; i < arg.Shape[0]; i++ {
