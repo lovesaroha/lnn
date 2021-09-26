@@ -15,7 +15,7 @@ This is a generalized neural network package with clean and transparent API for 
 ## Installation
 Simple install the package to your [$GOPATH](https://github.com/golang/go/wiki/GOPATH "GOPATH") with the [go tool](https://golang.org/cmd/go/ "go command") from shell:
 ```bash
-$ go get -u github.com/lovesaroha/lnn
+go get -u github.com/lovesaroha/lnn
 ```
 Make sure [Git is installed](https://git-scm.com/downloads) on your machine and in your system's `PATH`.
 
